@@ -17,7 +17,7 @@ Installation on HEAD
 --------------------
 
     cd into ~/.redcar/plugins
-    git clone git://github.com/Samsinite/rsense.git
+    git clone git://github.com/libin/redcar_air.git
 
 USAGE
 =====
