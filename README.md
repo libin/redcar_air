@@ -16,7 +16,7 @@ Requirement
 Installation on HEAD
 --------------------
 
-    cd into ~/.redcar/plugins
+    cd ~/.redcar/plugins
     git clone git://github.com/libin/redcar_air.git
 
 USAGE
