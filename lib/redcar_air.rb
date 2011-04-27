@@ -26,12 +26,12 @@ module Redcar
     end
     
     class ExecuteCommand < Redcar::EditTabCommand
-      TITLE = "Output"
+      TITLE = "Air Output"
       
       def execute_for(cmd)
         path = doc.path
-        command = "#{cmd.to_s} \"#{path}\""
-        output = `#{command} 2>&1`
+        command = "#{cmd} \"#{path}\""
+        output =  `#{command} 2>&1`
         tab = output_tab
         title = "[#{DateTime.now}]$ #{command}"
         tab.document.text = "#{tab.document.to_s}" +
@@ -48,13 +48,19 @@ module Redcar
     
     class CompileToSWF < RedcarAir::ExecuteCommand
       def execute
-        execute_for :amxmlc
+        libs_path = doc.path.split('/')
+        libs_path.pop
+        libs_folder = libs_path.push('libs').join('/')
+        libraries = []
+        Dir.entries(libs_folder).each{|f| libraries << "#{libs_folder}/#{f}" if f[/\.swc/]} if File.directory?(libs_folder)
+        libraries = libraries.size > 0 ? "-library-path+=#{libraries.join(',')}" : ''
+        execute_for "amxmlc #{libraries}"
       end
     end
     
     class RunAirApp < RedcarAir::ExecuteCommand
       def execute
-        execute_for :adl
+        execute_for 'adl'
       end
     end
   end
